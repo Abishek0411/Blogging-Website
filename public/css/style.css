@@ -1,7 +1,7 @@
 
 :root{
-    --uiclr:#009D84;
-    --white: #E4E9FD;
+    --uiclr:#A31D1D;
+    --white: #FEF9E1;
 }
 *{
     margin: 0;
@@ -33,7 +33,7 @@ main{
     flex-direction: column;
     width: 40%;
     height: 100%;
-    background-color:rgba(0, 157, 132,0.1);
+    background-color:#FEF9E1;
     align-items: center;
 }
 .login-col1 h1{
@@ -132,7 +132,7 @@ main{
     box-shadow: 1px 3px 10px rgb(178, 176, 176);
 }
 .form-container form .lg-btn:hover{
-     background-color: #017763
+     background-color: #6D2323
 }
 #login{
     transition: 1s;
