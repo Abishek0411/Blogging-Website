@@ -20,9 +20,10 @@ jobs:
             # Navigate to the home directory
             cd /home/ec2-user
 
-            # Stop and remove any running containers using port 3000
-            sudo docker ps -q --filter "publish=3000" | xargs -r sudo docker stop
-            sudo docker ps -q --filter "publish=3000" | xargs -r sudo docker rm
+            # Stop and remove any container using port 3000 or with the name 'blogtok'
+            sudo docker ps -q --filter "name=blogtok" | xargs -r sudo docker rm -f
+            sudo docker ps -q --filter "publish=3000" | xargs -r sudo docker stop || true
+            sudo docker ps -q --filter "publish=3000" | xargs -r sudo docker rm -f
 
             # Load the Docker image from the tar file
             sudo docker load -i blogtok.tar
