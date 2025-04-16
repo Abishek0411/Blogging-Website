@@ -3,26 +3,14 @@ name: Deploy to EC2
 on:
   push:
     branches:
-      - main 
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Copy files to EC2 via SCP
-        uses: appleboy/scp-action@v0.1.6
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ec2-user
-          key: ${{ secrets.EC2_KEY }}
-          source: "blogtok.tar"
-          target: "/home/ec2-user"
-
-      - name: SSH into EC2 and Load Docker Image
+      - name: SSH into EC2 and Deploy Docker from TAR
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
