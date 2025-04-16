@@ -1,5 +1,5 @@
 :root {
-  --uiclr: #009d84;
+  --uiclr: #A31D1D;
   --white: #e4e9fd;
   --black: #040c0e;
   --light-black: rgb(53, 50, 50);
@@ -68,8 +68,8 @@ main {
   margin-top: 2%;
   padding: 8px 20px;
   font-size: 14pt;
-  background-color: var(--uiclr);
-  color: var(--white);
+  background-color: #E5D0AC;
+  color: 'black';
   outline: none;
   border: none;
   border-radius: 4px;

@@ -1,5 +1,5 @@
 :root {
-  --uiclr: #009d84;
+  --uiclr: #A31D1D;
   --white: #e4e9fd;
   --black: #040c0e;
   --light-black: rgb(53, 50, 50);
@@ -62,7 +62,7 @@ main{
 
 .profile-info-container{
   height: 65%;
-  background-color:rgba(0, 157, 131,.8);
+  background-color:#FEF9E1;
   border-bottom-left-radius:20px ;
   border-bottom-right-radius: 20px;
 }
@@ -91,7 +91,7 @@ main{
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
-  color: white;
+  color: black;
 }
 .username{
   font-weight: bold;
@@ -99,13 +99,13 @@ main{
 }
 .bio{ 
   text-align: center;
-  color: rgb(247, 242, 242);
+  color: black;
   font-size: .9rem;
   width: 90%;
 }
 .web-link a{
   text-decoration: none;
-  color: white;
+  color: black;
 }
 hr{
   margin: 20px 30px;
@@ -122,7 +122,7 @@ hr{
   text-align: center;
   font-size: 1.5rem;
   font-weight: bold;
-  color: white;
+  color: black;
 }
 .stats div p{
   margin: 6%;
