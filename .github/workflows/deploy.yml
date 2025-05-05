@@ -17,22 +17,31 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2_KEY }}
           script: |
-            # Navigate to the home directory
-            cd /home/ec2-user
-            sudo apt update
-            sudo apt install -y docker.io
-            sudo systemctl start docker
-            sudo systemctl enable docker
-            sudo docker --version
+            # Go to the home directory
+            cd ~
 
-            # Stop and remove any container named 'blogtok' if it exists
+            # Install Docker if not already installed
+            if ! command -v docker &> /dev/null
+            then
+              echo "Docker not found. Installing..."
+              sudo apt update
+              sudo apt install -y docker.io
+              sudo systemctl start docker
+              sudo systemctl enable docker
+              sudo usermod -aG docker $USER
+            fi
+
+            # Show Docker version
+            docker --version
+
+            # Clean up old container if exists
             sudo docker ps -a --filter "name=blogtok" -q | xargs -r sudo docker rm -f
-            # Check if the container is still running and remove it if bound to port 3000
-            sudo docker ps -a --filter "publish=3000" -q | xargs -r sudo docker stop || true
-            sudo docker ps -a --filter "publish=3000" -q | xargs -r sudo docker rm -f
 
-            # Load the Docker image from the tar file
+            # Free up port 3000 if needed
+            sudo lsof -ti:3000 | xargs -r sudo kill -9
+
+            # Load Docker image from tar
             sudo docker load -i blogtok.tar
 
-            # Run the new Docker container
+            # Run the container
             sudo docker run -d -p 3000:3000 --name blogtok blogtok
