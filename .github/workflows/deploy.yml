@@ -19,6 +19,11 @@ jobs:
           script: |
             # Navigate to the home directory
             cd /home/ec2-user
+            sudo apt update
+            sudo apt install -y docker.io
+            sudo systemctl start docker
+            sudo systemctl enable docker
+            sudo docker --version
 
             # Stop and remove any container named 'blogtok' if it exists
             sudo docker ps -a --filter "name=blogtok" -q | xargs -r sudo docker rm -f
