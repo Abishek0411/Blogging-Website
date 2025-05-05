@@ -10,7 +10,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: SSH into EC2 and Deploy Docker from TAR
+      - name: Upload blogtok.tar to EC2
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ec2-user
+          key: ${{ secrets.EC2_KEY }}
+          source: "blogtok.tar"
+          target: "/home/ec2-user"
+
+      - name: SSH into EC2 and Deploy Docker
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -19,9 +28,7 @@ jobs:
           script: |
             cd ~
 
-            # Install Docker for Amazon Linux
             if ! command -v docker &> /dev/null; then
-              echo "Installing Docker on Amazon Linux..."
               sudo yum update -y
               sudo yum install -y docker
               sudo service docker start
@@ -29,17 +36,10 @@ jobs:
               sudo usermod -aG docker ec2-user
             fi
 
-            # Show Docker version
             sudo docker --version
 
-            # Remove old container if exists
             sudo docker ps -a --filter "name=blogtok" -q | xargs -r sudo docker rm -f
-
-            # Free up port 3000 if needed
             sudo lsof -ti:3000 | xargs -r sudo kill -9 || true
 
-            # Load the Docker image
             sudo docker load -i blogtok.tar
-
-            # Run the container
             sudo docker run -d -p 3000:3000 --name blogtok blogtok
