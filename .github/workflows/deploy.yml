@@ -17,30 +17,28 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2_KEY }}
           script: |
-            # Go to the home directory
             cd ~
 
-            # Install Docker if not already installed
-            if ! command -v docker &> /dev/null
-            then
-              echo "Docker not found. Installing..."
-              sudo apt update
-              sudo apt install -y docker.io
-              sudo systemctl start docker
+            # Install Docker for Amazon Linux
+            if ! command -v docker &> /dev/null; then
+              echo "Installing Docker on Amazon Linux..."
+              sudo yum update -y
+              sudo yum install -y docker
+              sudo service docker start
               sudo systemctl enable docker
-              sudo usermod -aG docker $USER
+              sudo usermod -aG docker ec2-user
             fi
 
             # Show Docker version
-            docker --version
+            sudo docker --version
 
-            # Clean up old container if exists
+            # Remove old container if exists
             sudo docker ps -a --filter "name=blogtok" -q | xargs -r sudo docker rm -f
 
             # Free up port 3000 if needed
-            sudo lsof -ti:3000 | xargs -r sudo kill -9
+            sudo lsof -ti:3000 | xargs -r sudo kill -9 || true
 
-            # Load Docker image from tar
+            # Load the Docker image
             sudo docker load -i blogtok.tar
 
             # Run the container
