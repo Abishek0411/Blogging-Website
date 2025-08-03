@@ -1,7 +1,3 @@
-Absolutely, bro! Here's a clean, professional `README.md` for your **BlogTok** project that highlights both the **features** and your **DevOps CI/CD pipeline**. It's perfect for recruiters, collaborators, or open-source contributors.
-
----
-
 ````markdown
 # 📝 BlogTok - Modern Blogging Platform with CI/CD
 
@@ -132,15 +128,4 @@ MIT © [Abishek Rajaram](https://github.com/Abishek0411)
 
 ---
 
-```
-
----
-
-Let me know if you want:
-- Shields/badges (build passing, license, tech stack, etc.)
-- Live demo buttons
-- Custom emojis/theme
-- Documentation for each folder
-
-Want this saved as a real file you can download and use directly?
 ```
